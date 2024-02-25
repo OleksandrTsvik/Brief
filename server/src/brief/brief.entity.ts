@@ -1,3 +1,4 @@
+import { IsDate } from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { CompletedBriefEntity } from '../completed-brief/completed-brief.entity';
@@ -15,6 +16,7 @@ export class BriefEntity {
   isActive: boolean;
 
   @Column('date')
+  @IsDate()
   dateCreation: Date;
 
   @OneToMany(

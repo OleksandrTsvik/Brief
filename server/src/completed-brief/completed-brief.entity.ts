@@ -1,3 +1,4 @@
+import { IsDate } from 'class-validator';
 import {
   Column,
   Entity,
@@ -15,6 +16,7 @@ export class CompletedBriefEntity {
   id: string;
 
   @Column('date')
+  @IsDate()
   dateCompleted: Date;
 
   @ManyToOne(() => BriefEntity, (brief) => brief.completedBriefs)

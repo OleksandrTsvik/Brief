@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { AnswerOptionEntity } from './answer-option.entity';
 import { AnswersBriefEntity } from '../answers-brief/answers-brief.entity';
 import { BriefEntity } from '../brief/brief.entity';
 
@@ -23,8 +24,12 @@ export class QuestionEntity {
   @Column()
   type: string;
 
-  @Column('simple-array', { nullable: true })
-  answerOptions: string[] | null;
+  @OneToMany(
+    () => AnswerOptionEntity,
+    (answerOption) => answerOption.question,
+    { onDelete: 'CASCADE' },
+  )
+  answerOptions: AnswerOptionEntity[];
 
   @ManyToOne(() => BriefEntity, (brief) => brief.questions)
   brief: BriefEntity;
