@@ -319,6 +319,21 @@
 												},
 												{
 													"_type": "ERDColumnView",
+													"_id": "AAAAAAGN4Z9SGcM/OlA=",
+													"_parent": {
+														"$ref": "AAAAAAGN4H0EWZgiaPo="
+													},
+													"model": {
+														"$ref": "AAAAAAGN4Z9SCsM8KNo="
+													},
+													"font": "Arial;13;0",
+													"left": 293,
+													"top": 538,
+													"width": 106.67724609375,
+													"height": 13
+												},
+												{
+													"_type": "ERDColumnView",
 													"_id": "AAAAAAGN4H15Xpg9SEs=",
 													"_parent": {
 														"$ref": "AAAAAAGN4H0EWZgiaPo="
@@ -328,7 +343,7 @@
 													},
 													"font": "Arial;13;0",
 													"left": 293,
-													"top": 538,
+													"top": 553,
 													"width": 106.67724609375,
 													"height": 13
 												}
@@ -337,14 +352,14 @@
 											"left": 288,
 											"top": 503,
 											"width": 116.67724609375,
-											"height": 53
+											"height": 68
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 288,
 									"top": 480,
 									"width": 116.67724609375,
-									"height": 76,
+									"height": 91,
 									"nameLabel": {
 										"$ref": "AAAAAAGN4H0EWZghdlE="
 									},
@@ -1264,6 +1279,15 @@
 								},
 								{
 									"_type": "ERDColumn",
+									"_id": "AAAAAAGN4Z9SCsM8KNo=",
+									"_parent": {
+										"$ref": "AAAAAAGN4H0EWZgekeE="
+									},
+									"name": "position",
+									"length": 0
+								},
+								{
+									"_type": "ERDColumn",
 									"_id": "AAAAAAGN4H15WZg6ul8=",
 									"_parent": {
 										"$ref": "AAAAAAGN4H0EWZgekeE="
@@ -1532,7 +1556,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGN4H/EN5hppQo="
 									},
-									"name": "userAnswer",
+									"name": "answer",
 									"length": 0
 								}
 							]

@@ -17,7 +17,7 @@ export class AtStrategy extends PassportStrategy(Strategy, 'access-token') {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<string> {
+  async validate(payload: JwtPayload) {
     const { id } = payload;
 
     const admin = await this.authService.existById(id);

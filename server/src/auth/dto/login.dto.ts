@@ -2,7 +2,8 @@ import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class LoginDto {
   @IsNotEmpty()
-  @Length(1, 32)
+  @IsString()
+  @Length(2, 32)
   username: string;
 
   @IsNotEmpty()

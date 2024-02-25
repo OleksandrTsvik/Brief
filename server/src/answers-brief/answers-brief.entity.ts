@@ -9,7 +9,7 @@ export class AnswersBriefEntity {
   id: string;
 
   @Column()
-  userAnswer: string;
+  answer: string;
 
   @ManyToOne(
     () => CompletedBriefEntity,

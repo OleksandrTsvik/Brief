@@ -9,7 +9,6 @@ import { compare, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 
 import { AdminEntity } from './admin.entity';
-import { AuthDto } from './dto/auth.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import configuration from '../config/configuration';
@@ -22,7 +21,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(loginDto: LoginDto): Promise<AuthDto> {
+  async login(loginDto: LoginDto) {
     const { username, password } = loginDto;
 
     const admin = await this.adminRepository.findOneBy({ username });
@@ -42,7 +41,7 @@ export class AuthService {
     return { username: admin.username, accessToken };
   }
 
-  private generateAccessToken(admin: AdminEntity): Promise<string> {
+  private generateAccessToken(admin: AdminEntity) {
     const config = configuration();
 
     const payload: JwtPayload = { id: admin.id };
@@ -53,15 +52,15 @@ export class AuthService {
     });
   }
 
-  existById(id: string): Promise<boolean> {
+  existById(id: string) {
     return this.adminRepository.existsBy({ id });
   }
 
-  existByUsername(username: string): Promise<boolean> {
+  existByUsername(username: string) {
     return this.adminRepository.existsBy({ username });
   }
 
-  async register(loginDto: LoginDto): Promise<void> {
+  async register(loginDto: LoginDto) {
     const { username, password } = loginDto;
 
     if (await this.existByUsername(username)) {
