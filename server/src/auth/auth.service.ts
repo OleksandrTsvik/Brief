@@ -44,11 +44,19 @@ export class AuthService {
 
   async info(infoDto: InfoDto) {
     const { accessToken } = infoDto;
+    const config = configuration();
 
-    const jwtPayload = this.jwtService.decode<JwtPayload>(accessToken);
+    let jwtPayload: JwtPayload;
+
+    try {
+      jwtPayload = await this.jwtService.verifyAsync<JwtPayload>(accessToken, {
+        secret: config.jwtAccess.secret,
+      });
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
 
     const { id } = jwtPayload;
-
     const admin = await this.adminRepository.findOneBy({ id });
 
     if (!admin) {
