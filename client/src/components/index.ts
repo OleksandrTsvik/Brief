@@ -1,3 +1,4 @@
+import CustomSpin from './custom-spin';
 import ErrorMessage from './error-message';
 
-export { ErrorMessage };
+export { CustomSpin, ErrorMessage };

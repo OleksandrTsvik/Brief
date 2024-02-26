@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const BASE_API_URL = 'http://localhost:5000/api';
+import { BASE_API_URL } from '../api/base-query-with-jwt';
 
 export interface LoginRequest {
   username: string;

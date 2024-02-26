@@ -42,11 +42,25 @@ export class BriefService {
     });
   }
 
+  findById(id: string) {
+    return this.briefRepository.findOne({
+      where: { id },
+      select: { id: true, title: true, isActive: true, dateCreation: true },
+    });
+  }
+
   async create(briefDto: BriefDto) {
     const { title, isActive } = briefDto;
 
     if (await this.existByTitle(title)) {
-      throw new BadRequestException('The provided title is not unique');
+      throw new BadRequestException('Вказаний заголовок не є унікальним');
+    }
+
+    if (isActive) {
+      await this.briefRepository.update(
+        { isActive: true },
+        { isActive: false },
+      );
     }
 
     const newBrief = this.briefRepository.create({
@@ -62,15 +76,20 @@ export class BriefService {
     const briefById = await this.briefRepository.findOneBy({ id });
 
     if (!briefById) {
-      throw new NotFoundException(
-        `The brief with the Id = '${id}' was not found`,
-      );
+      throw new NotFoundException(`Бриф з id = '${id}' не знайдено`);
     }
 
     const { title, isActive } = briefDto;
 
     if (briefById.title !== title && (await this.existByTitle(title))) {
-      throw new BadRequestException('The provided title is not unique');
+      throw new BadRequestException('Вказаний заголовок не є унікальним');
+    }
+
+    if (isActive) {
+      await this.briefRepository.update(
+        { isActive: true },
+        { isActive: false },
+      );
     }
 
     await this.briefRepository.update({ id }, { title, isActive: !!isActive });

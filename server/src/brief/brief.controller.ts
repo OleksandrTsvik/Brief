@@ -18,6 +18,12 @@ export class BriefController {
   constructor(private readonly briefService: BriefService) {}
 
   @UseGuards(AtGuard)
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.briefService.findById(id);
+  }
+
+  @UseGuards(AtGuard)
   @Get()
   findAll() {
     return this.briefService.findAll();

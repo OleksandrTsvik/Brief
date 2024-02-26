@@ -19,9 +19,7 @@ export class QuestionService {
     const brief = await this.briefRepository.findOneBy({ id: briefId });
 
     if (!brief) {
-      throw new NotFoundException(
-        `The brief with the Id = '${briefId}' was not found`,
-      );
+      throw new NotFoundException(`Бриф з id = '${briefId}' не знайдено`);
     }
 
     const { position, question, type, answerOptions } = saveQuestionDto;
@@ -41,9 +39,7 @@ export class QuestionService {
     const questionById = await this.questionRepository.findOneBy({ id });
 
     if (!questionById) {
-      throw new NotFoundException(
-        `The question with the Id = '${id}' was not found`,
-      );
+      throw new NotFoundException(`Запитання з id = '${id}' не знайдено`);
     }
 
     const { position, question, type, answerOptions } = saveQuestionDto;

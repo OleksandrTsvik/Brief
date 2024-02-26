@@ -23,9 +23,7 @@ export class CompletedBriefService {
     const brief = await this.briefRepository.findOneBy({ id: briefId });
 
     if (!brief) {
-      throw new NotFoundException(
-        `The brief with the Id = '${briefId}' was not found`,
-      );
+      throw new NotFoundException(`Бриф з id = '${briefId}' не знайдено`);
     }
 
     const completedBrief = this.completedBriefRepository.create({
@@ -56,9 +54,7 @@ export class CompletedBriefService {
     });
 
     if (!completedBrief) {
-      throw new NotFoundException(
-        `The completed brief with the Id = '${id}' was not found`,
-      );
+      throw new NotFoundException(`Завершений бриф з id = '${id}' не знайдено`);
     }
 
     const answersBrief: AnswersBriefEntity[] = [];

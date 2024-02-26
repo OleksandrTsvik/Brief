@@ -21,12 +21,12 @@ export default function Navbar() {
 
     if (isAuth) {
       adminItems = [
-        { key: '/briefs', label: 'Briefs' },
-        { key: '/completed-briefs', label: 'Completed briefs' },
+        { key: '/admin/briefs', label: 'Брифи' },
+        { key: '/admin/completed-briefs', label: 'Завершені брифи' },
       ];
     }
 
-    return [{ key: '/', label: 'Home' }, ...adminItems];
+    return [{ key: '/', label: 'Головна' }, ...adminItems];
   }, [isAuth]);
 
   return (
@@ -45,7 +45,7 @@ export default function Navbar() {
             <Button icon={<LoginOutlined />} />
           </Link>
         ) : (
-          <Button onClick={() => appDispatch(resetAuthState())}>Log out</Button>
+          <Button onClick={() => appDispatch(resetAuthState())}>Вийти</Button>
         )}
       </div>
     </Layout.Header>

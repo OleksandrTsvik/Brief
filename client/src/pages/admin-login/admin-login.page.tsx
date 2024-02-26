@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
     <div className={styles.formWrapper}>
       <Form className={styles.form} form={form} onFinish={handleSubmit}>
         <Typography.Title className={styles.title}>
-          Log in to admin panel
+          Вхід до адмін-панелі
         </Typography.Title>
 
         {isError && (
@@ -40,8 +40,12 @@ export default function AdminLoginPage() {
         <Form.Item
           name="username"
           rules={[
-            { required: true, message: 'Please input your Username!' },
-            { min: 2, max: 32 },
+            { required: true, message: 'Будь ласка, введіть свій нікнейм!' },
+            {
+              min: 2,
+              max: 32,
+              message: 'Нікнейм має містити від 2-32 символів',
+            },
           ]}
         >
           <Input prefix={<UserOutlined />} placeholder="Username" />
@@ -50,8 +54,12 @@ export default function AdminLoginPage() {
         <Form.Item
           name="password"
           rules={[
-            { required: true, message: 'Please input your Password!' },
-            { min: 6, max: 32 },
+            { required: true, message: 'Будь ласка, введіть свій пароль!' },
+            {
+              min: 6,
+              max: 32,
+              message: 'Пароль має містити від 6-32 символів',
+            },
           ]}
         >
           <Input.Password
@@ -62,8 +70,8 @@ export default function AdminLoginPage() {
         </Form.Item>
 
         <Form.Item>
-          <Button block loading={isLoading} type="primary" htmlType="submit">
-            Log in
+          <Button block type="primary" htmlType="submit" loading={isLoading}>
+            Увійти
           </Button>
         </Form.Item>
       </Form>

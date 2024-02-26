@@ -6,7 +6,7 @@ export default function PrivateOutlet() {
   const { isAuth } = useAuth();
 
   if (!isAuth) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/admin/login" replace />;
   }
 
   return <Outlet />;

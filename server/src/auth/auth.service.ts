@@ -28,13 +28,13 @@ export class AuthService {
     const admin = await this.adminRepository.findOneBy({ username });
 
     if (!admin) {
-      throw new UnauthorizedException('Incorrect username or password');
+      throw new UnauthorizedException('Неправильний нікнейм або пароль');
     }
 
     const passwordMatches = await compare(password, admin.password);
 
     if (!passwordMatches) {
-      throw new UnauthorizedException('Incorrect username or password');
+      throw new UnauthorizedException('Неправильний нікнейм або пароль');
     }
 
     const accessToken = await this.generateAccessToken(admin);
@@ -89,7 +89,7 @@ export class AuthService {
     const { username, password } = loginDto;
 
     if (await this.existByUsername(username)) {
-      throw new BadRequestException('The provided username is not unique');
+      throw new BadRequestException('Вказаний нікнейм не є унікальним');
     }
 
     const hashedPassword = await hash(password, 10);
