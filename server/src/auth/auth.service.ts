@@ -9,6 +9,7 @@ import { compare, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 
 import { AdminEntity } from './admin.entity';
+import { InfoDto } from './dto/info.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import configuration from '../config/configuration';
@@ -37,6 +38,22 @@ export class AuthService {
     }
 
     const accessToken = await this.generateAccessToken(admin);
+
+    return { username: admin.username, accessToken };
+  }
+
+  async info(infoDto: InfoDto) {
+    const { accessToken } = infoDto;
+
+    const jwtPayload = this.jwtService.decode<JwtPayload>(accessToken);
+
+    const { id } = jwtPayload;
+
+    const admin = await this.adminRepository.findOneBy({ id });
+
+    if (!admin) {
+      throw new UnauthorizedException();
+    }
 
     return { username: admin.username, accessToken };
   }
