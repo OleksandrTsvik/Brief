@@ -1,13 +1,9 @@
-import { Form, Input, Button, Radio, Breadcrumb } from 'antd';
+import { Breadcrumb } from 'antd';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { useGetBriefQuery, useUpdateBriefMutation } from '../../api/brief.api';
-import { CustomSpin, ErrorMessage } from '../../components';
-
-interface FormValues {
-  title: string;
-  isActive: boolean;
-}
+import { CustomSpin } from '../../components';
+import BriefSaveForm, { FormValues } from '../brief-create/brief-save.form';
 
 export default function BriefUpdatePage() {
   const { id } = useParams();
@@ -15,8 +11,6 @@ export default function BriefUpdatePage() {
 
   const navigate = useNavigate();
   const [createBrief, { isLoading, isError, error }] = useUpdateBriefMutation();
-
-  const [form] = Form.useForm<FormValues>();
 
   if (isFetching) {
     return <CustomSpin />;
@@ -43,50 +37,14 @@ export default function BriefUpdatePage() {
         ]}
         style={{ marginBottom: 16 }}
       />
-      <Form
-        layout="vertical"
-        form={form}
+      <BriefSaveForm
+        submitText="Оновити"
         initialValues={data}
-        onFinish={handleSubmit}
-      >
-        {isError && (
-          <Form.Item>
-            <ErrorMessage error={error} />
-          </Form.Item>
-        )}
-
-        <Form.Item
-          name="title"
-          label="Заголовок"
-          rules={[
-            { required: true, message: 'Введіть заголовок брифу' },
-            {
-              min: 3,
-              max: 32,
-              message: 'Заголовок має містити від 3-32 символів',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="isActive"
-          label="Активний?"
-          rules={[{ required: true, message: 'Оберіть один з варіантів' }]}
-        >
-          <Radio.Group>
-            <Radio value={true}>так</Radio>
-            <Radio value={false}>ні</Radio>
-          </Radio.Group>
-        </Form.Item>
-
-        <Form.Item>
-          <Button block type="primary" htmlType="submit" loading={isLoading}>
-            Оновити
-          </Button>
-        </Form.Item>
-      </Form>
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 }
