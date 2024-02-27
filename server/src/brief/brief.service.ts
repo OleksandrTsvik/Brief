@@ -49,6 +49,28 @@ export class BriefService {
     });
   }
 
+  findByIdWithQuestions(id: string) {
+    return this.briefRepository.findOne({
+      where: { id },
+      select: {
+        id: true,
+        title: true,
+        isActive: true,
+        questions: {
+          id: true,
+          position: true,
+          question: true,
+          type: true,
+          answerOptions: { id: true, position: true, answerOption: true },
+        },
+      },
+      relations: { questions: { answerOptions: true } },
+      order: {
+        questions: { position: 'ASC', answerOptions: { position: 'ASC' } },
+      },
+    });
+  }
+
   async create(briefDto: BriefDto) {
     const { title, isActive } = briefDto;
 

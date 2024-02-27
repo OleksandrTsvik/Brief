@@ -2,8 +2,8 @@ import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
+  IsInt,
   IsNotEmpty,
-  IsNumber,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -13,7 +13,7 @@ import { QuestionType } from '../enums/question-type.enum';
 
 export class SaveQuestionDto {
   @IsNotEmpty()
-  @IsNumber()
+  @IsInt()
   position: number;
 
   @IsNotEmpty()

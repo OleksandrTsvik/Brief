@@ -29,6 +29,12 @@ export class BriefController {
     return this.briefService.findAll();
   }
 
+  @UseGuards(AtGuard)
+  @Get('/questions/:id')
+  findByIdWithQuestions(@Param('id') id: string) {
+    return this.briefService.findByIdWithQuestions(id);
+  }
+
   @Get('active')
   findActive() {
     return this.briefService.findActive();

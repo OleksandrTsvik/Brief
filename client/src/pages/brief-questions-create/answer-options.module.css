@@ -1,0 +1,11 @@
+.space div:nth-of-type(2) {
+  width: 100%;
+  flex: 1;
+}
+
+.droppableList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}

@@ -10,6 +10,8 @@ import {
   BriefCreatePage,
   NotFoundPage,
   BriefUpdatePage,
+  BriefQuestionsPage,
+  BriefQuestionsCreatePage,
 } from '../pages';
 
 const routes: RouteObject[] = [
@@ -33,6 +35,15 @@ const routes: RouteObject[] = [
               { index: true, element: <BriefListPage /> },
               { path: 'create', element: <BriefCreatePage /> },
               { path: 'update/:id', element: <BriefUpdatePage /> },
+              { path: 'questions/:id', element: <BriefQuestionsPage /> },
+              {
+                path: 'questions/:briefId/create',
+                element: <BriefQuestionsCreatePage />,
+              },
+              {
+                path: 'questions/update/:questionId',
+                element: <>BriefQuestionsUpdatePage</>,
+              },
             ],
           },
         ],

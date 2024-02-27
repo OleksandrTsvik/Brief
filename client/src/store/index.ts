@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { briefApi } from '../api/brief.api';
+import { questionApi } from '../api/question.api';
 import { authApi } from '../auth/auth.api';
 import { authReducer } from '../auth/auth.slice';
 
@@ -9,9 +10,14 @@ export const store = configureStore({
     auth: authReducer,
     [authApi.reducerPath]: authApi.reducer,
     [briefApi.reducerPath]: briefApi.reducer,
+    [questionApi.reducerPath]: questionApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, briefApi.middleware),
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      briefApi.middleware,
+      questionApi.middleware,
+    ),
   devTools: import.meta.env.DEV,
 });
 
