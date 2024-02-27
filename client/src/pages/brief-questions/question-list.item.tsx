@@ -1,4 +1,6 @@
+import { DragOutlined } from '@ant-design/icons';
 import { Badge, List, Tag } from 'antd';
+import { Draggable } from 'react-beautiful-dnd';
 
 import DeleteQuestionButton from './delete-question.button';
 import UpdateQuestionButton from './update-question.button';
@@ -11,18 +13,28 @@ interface Props {
 
 export default function QuestionListItem({ index, item }: Props) {
   return (
-    <List.Item
-      actions={[
-        <UpdateQuestionButton id={item.id} />,
-        <DeleteQuestionButton item={item} />,
-      ]}
-    >
-      <div>
-        {index}. {item.question}
-      </div>
-      <Badge color="green" count={item.answerOptions.length}>
-        <Tag>{item.type}</Tag>
-      </Badge>
-    </List.Item>
+    <Draggable draggableId={`briefQuestions-${index}`} index={index}>
+      {(provided) => (
+        <List.Item
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          actions={[
+            <UpdateQuestionButton id={item.id} />,
+            <DeleteQuestionButton item={item} />,
+          ]}
+        >
+          <div>
+            <DragOutlined
+              {...provided.dragHandleProps}
+              style={{ cursor: 'grab', fontSize: 18, marginRight: 8 }}
+            />
+            {index + 1}. {item.question}
+          </div>
+          <Badge color="green" count={item.answerOptions.length}>
+            <Tag>{item.type}</Tag>
+          </Badge>
+        </List.Item>
+      )}
+    </Draggable>
   );
 }

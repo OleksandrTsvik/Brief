@@ -20,6 +20,11 @@ interface UpdateQuestionRequest {
   answerOptions: { position: number; answerOption: string }[];
 }
 
+interface ReorderQuestionRequest {
+  id: string;
+  position: number;
+}
+
 export const questionApi = createApi({
   reducerPath: 'questionApi',
   baseQuery: baseQueryWithJwt(),
@@ -62,6 +67,14 @@ export const questionApi = createApi({
       }),
       invalidatesTags: ['Question'],
     }),
+    reorderQuestions: builder.mutation<void, ReorderQuestionRequest[]>({
+      query: (data) => ({
+        url: '/question/reorder',
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['Question'],
+    }),
   }),
 });
 
@@ -71,4 +84,5 @@ export const {
   useCreateQuestionMutation,
   useUpdateQuestionMutation,
   useDeleteQuestionMutation,
+  useReorderQuestionsMutation,
 } = questionApi;

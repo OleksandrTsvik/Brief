@@ -9,6 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+import { ReorderQuestionDto } from './dto/reorder-question.dto';
 import { SaveQuestionDto } from './dto/save-question.dto';
 import { QuestionService } from './question.service';
 import { AtGuard } from '../auth/guards/at.guard';
@@ -29,6 +30,11 @@ export class QuestionController {
     @Body() saveQuestionDto: SaveQuestionDto,
   ) {
     return this.questionService.create(briefId, saveQuestionDto);
+  }
+
+  @Put('/reorder')
+  reorder(@Body() reorderQuestionDto: ReorderQuestionDto[]) {
+    return this.questionService.reorder(reorderQuestionDto);
   }
 
   @Put(':id')

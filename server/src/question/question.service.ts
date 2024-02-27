@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 
 import { AnswerOptionEntity } from './answer-option.entity';
+import { ReorderQuestionDto } from './dto/reorder-question.dto';
 import { SaveQuestionDto } from './dto/save-question.dto';
 import { QuestionEntity } from './question.entity';
 import { BriefEntity } from '../brief/brief.entity';
@@ -84,5 +85,26 @@ export class QuestionService {
 
   async delete(id: string) {
     await this.questionRepository.delete({ id });
+  }
+
+  async reorder(reorderQuestionDto: ReorderQuestionDto[]) {
+    const ids = reorderQuestionDto.map((item) => item.id);
+
+    const questions = await this.questionRepository.find({
+      where: { id: In(ids) },
+      select: { id: true, position: true },
+    });
+
+    for (const question of questions) {
+      const questionDto = reorderQuestionDto.find(
+        (item) => item.id === question.id,
+      );
+
+      if (questionDto) {
+        question.position = questionDto.position;
+      }
+    }
+
+    await this.questionRepository.save(questions);
   }
 }

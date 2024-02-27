@@ -1,9 +1,13 @@
 import { Breadcrumb, List, Tag, Typography } from 'antd';
+import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import CreateQuestionButton from './create-question.button';
 import QuestionListItem from './question-list.item';
-import { useGetBriefWithQuestionsQuery } from '../../api/question.api';
+import {
+  useGetBriefWithQuestionsQuery,
+  useReorderQuestionsMutation,
+} from '../../api/question.api';
 import { CustomSpin } from '../../components';
 
 export default function BriefQuestionsPage() {
@@ -12,6 +16,8 @@ export default function BriefQuestionsPage() {
     id: id as string,
   });
 
+  const [reorderQuestions] = useReorderQuestionsMutation();
+
   if (isFetching) {
     return <CustomSpin />;
   }
@@ -19,6 +25,23 @@ export default function BriefQuestionsPage() {
   if (!data) {
     return <Navigate to="/not-found" replace />;
   }
+
+  const handleDragEnd = (result: DropResult) => {
+    const { destination, source } = result;
+
+    if (!destination || destination.index === source.index) {
+      return;
+    }
+
+    const items = data.questions.map((item) => item.id);
+
+    const [reorderedItem] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, reorderedItem);
+
+    reorderQuestions(
+      items.map((item, index) => ({ id: item, position: index + 1 })),
+    ).unwrap();
+  };
 
   return (
     <>
@@ -38,19 +61,29 @@ export default function BriefQuestionsPage() {
         ]}
         style={{ marginBottom: 16 }}
       />
+
       <div style={{ textAlign: 'right' }}>
         <CreateQuestionButton briefId={data.id} />
       </div>
+
       <Typography.Title level={5}>
         Всього запитань: {data.questions.length}
       </Typography.Title>
-      <List
-        bordered
-        dataSource={data.questions}
-        renderItem={(item, index) => (
-          <QuestionListItem index={index + 1} item={item} />
-        )}
-      />
+
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="briefQuestions">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <List bordered>
+                {data.questions.map((item, index) => (
+                  <QuestionListItem key={item.id} index={index} item={item} />
+                ))}
+                {provided.placeholder}
+              </List>
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </>
   );
 }
