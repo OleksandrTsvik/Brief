@@ -17,6 +17,11 @@ import { AtGuard } from '../auth/guards/at.guard';
 export class BriefController {
   constructor(private readonly briefService: BriefService) {}
 
+  @Get('active')
+  findActive() {
+    return this.briefService.findActive();
+  }
+
   @UseGuards(AtGuard)
   @Get(':id')
   findById(@Param('id') id: string) {
@@ -33,11 +38,6 @@ export class BriefController {
   @Get('/questions/:id')
   findByIdWithQuestions(@Param('id') id: string) {
     return this.briefService.findByIdWithQuestions(id);
-  }
-
-  @Get('active')
-  findActive() {
-    return this.briefService.findActive();
   }
 
   @UseGuards(AtGuard)

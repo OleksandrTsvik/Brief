@@ -30,7 +30,7 @@ export default function BriefQuestionsUpdatePage() {
   }
 
   const handleSubmit = (body: FormFinishValues) => {
-    updateQuestion({ id: data.id, ...body })
+    updateQuestion({ id: data.id, ...body, position: data.position })
       .unwrap()
       .then(() => navigate(`/admin/briefs/questions/${data.brief.id}`));
   };

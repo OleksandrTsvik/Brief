@@ -13,3 +13,9 @@ export interface BriefWithQuestions {
   isActive: boolean;
   questions: Question[];
 }
+
+export interface ActiveBrief {
+  id: string;
+  title: string;
+  questions: Question[];
+}

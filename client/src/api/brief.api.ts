@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithJwt } from './base-query-with-jwt';
-import { Brief } from '../models/brief';
+import { ActiveBrief, Brief } from '../models/brief';
 
 interface CreateBriefRequest {
   title: string;
@@ -19,6 +19,13 @@ export const briefApi = createApi({
   baseQuery: baseQueryWithJwt('/brief'),
   tagTypes: ['Brief'],
   endpoints: (builder) => ({
+    getActiveBrief: builder.query<ActiveBrief, void>({
+      query: () => ({
+        url: '/active',
+        method: 'GET',
+      }),
+      providesTags: ['Brief'],
+    }),
     getBriefs: builder.query<Brief[], void>({
       query: () => ({
         url: '/',
@@ -68,6 +75,7 @@ export const briefApi = createApi({
 });
 
 export const {
+  useGetActiveBriefQuery,
   useGetBriefsQuery,
   useGetBriefQuery,
   useCreateBriefMutation,

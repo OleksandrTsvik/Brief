@@ -30,6 +30,7 @@ export class BriefService {
           answerOptions: { id: true, position: true, answerOption: true },
         },
       },
+      relations: { questions: { answerOptions: true } },
       order: {
         questions: { position: 'ASC', answerOptions: { position: 'ASC' } },
       },
