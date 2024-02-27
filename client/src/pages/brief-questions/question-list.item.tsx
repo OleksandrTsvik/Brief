@@ -1,7 +1,7 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Badge, Button, List, Tag } from 'antd';
-import { Link } from 'react-router-dom';
+import { Badge, List, Tag } from 'antd';
 
+import DeleteQuestionButton from './delete-question.button';
+import UpdateQuestionButton from './update-question.button';
 import { Question } from '../../models/question';
 
 interface Props {
@@ -13,10 +13,8 @@ export default function QuestionListItem({ index, item }: Props) {
   return (
     <List.Item
       actions={[
-        <Link to={`/admin/briefs/questions/update/${item.id}`}>
-          <Button type="primary" icon={<EditOutlined />} />
-        </Link>,
-        <Button danger type="primary" icon={<DeleteOutlined />} />,
+        <UpdateQuestionButton id={item.id} />,
+        <DeleteQuestionButton item={item} />,
       ]}
     >
       <div>
