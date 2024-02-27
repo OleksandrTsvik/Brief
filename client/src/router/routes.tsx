@@ -12,6 +12,7 @@ import {
   BriefUpdatePage,
   BriefQuestionsPage,
   BriefQuestionsCreatePage,
+  BriefQuestionsUpdatePage,
 } from '../pages';
 
 const routes: RouteObject[] = [
@@ -42,7 +43,7 @@ const routes: RouteObject[] = [
               },
               {
                 path: 'questions/update/:questionId',
-                element: <>BriefQuestionsUpdatePage</>,
+                element: <BriefQuestionsUpdatePage />,
               },
             ],
           },

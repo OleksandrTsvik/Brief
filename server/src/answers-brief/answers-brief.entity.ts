@@ -14,9 +14,13 @@ export class AnswersBriefEntity {
   @ManyToOne(
     () => CompletedBriefEntity,
     (completedBrief) => completedBrief.answersBriefs,
+    { cascade: true, onDelete: 'CASCADE' },
   )
   completedBrief: CompletedBriefEntity;
 
-  @ManyToOne(() => QuestionEntity, (question) => question.answersBriefs)
+  @ManyToOne(() => QuestionEntity, (question) => question.answersBriefs, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   question: QuestionEntity;
 }

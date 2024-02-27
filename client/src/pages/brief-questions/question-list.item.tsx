@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, List, Tag } from 'antd';
+import { Badge, Button, List, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { Question } from '../../models/question';
@@ -22,7 +22,9 @@ export default function QuestionListItem({ index, item }: Props) {
       <div>
         {index}. {item.question}
       </div>
-      <Tag>{item.type}</Tag>
+      <Badge color="green" count={item.answerOptions.length}>
+        <Tag>{item.type}</Tag>
+      </Badge>
     </List.Item>
   );
 }

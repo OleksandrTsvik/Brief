@@ -13,6 +13,9 @@ export class AnswerOptionEntity {
   @Column()
   answerOption: string;
 
-  @ManyToOne(() => QuestionEntity, (question) => question.answerOptions)
+  @ManyToOne(() => QuestionEntity, (question) => question.answerOptions, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   question: QuestionEntity;
 }

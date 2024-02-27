@@ -22,12 +22,12 @@ export class BriefEntity {
   @OneToMany(
     () => CompletedBriefEntity,
     (completedBrief) => completedBrief.brief,
-    { onDelete: 'CASCADE' },
+    { cascade: ['insert', 'update'] },
   )
   completedBriefs: CompletedBriefEntity[];
 
   @OneToMany(() => QuestionEntity, (question) => question.brief, {
-    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
   })
   questions: QuestionEntity[];
 }

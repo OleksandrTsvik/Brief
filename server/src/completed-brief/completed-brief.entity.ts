@@ -19,13 +19,16 @@ export class CompletedBriefEntity {
   @IsDate()
   dateCompleted: Date;
 
-  @ManyToOne(() => BriefEntity, (brief) => brief.completedBriefs)
+  @ManyToOne(() => BriefEntity, (brief) => brief.completedBriefs, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   brief: BriefEntity;
 
   @OneToMany(
     () => AnswersBriefEntity,
     (answersBrief) => answersBrief.completedBrief,
-    { onDelete: 'CASCADE' },
+    { cascade: ['insert', 'update'] },
   )
   answersBriefs: AnswersBriefEntity[];
 }

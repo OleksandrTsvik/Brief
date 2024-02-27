@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
   Put,
@@ -16,6 +17,11 @@ import { AtGuard } from '../auth/guards/at.guard';
 @Controller('question')
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
+
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.questionService.findById(id);
+  }
 
   @Post(':briefId')
   create(

@@ -20,8 +20,6 @@ export default function BriefQuestionsPage() {
     return <Navigate to="/not-found" replace />;
   }
 
-  console.log(data);
-
   return (
     <>
       <Breadcrumb

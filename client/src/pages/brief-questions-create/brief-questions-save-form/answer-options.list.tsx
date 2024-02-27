@@ -2,9 +2,9 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Form, Button } from 'antd';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 
+import { AnswerOption } from '.';
 import AnswerOptionItem from './answer-option.item';
 import styles from './answer-options.module.css';
-import { AnswerOption } from './brief-questions-create.page';
 
 interface Props {
   getFieldValue: () => AnswerOption[];

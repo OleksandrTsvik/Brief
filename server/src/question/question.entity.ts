@@ -27,17 +27,20 @@ export class QuestionEntity {
   @OneToMany(
     () => AnswerOptionEntity,
     (answerOption) => answerOption.question,
-    { onDelete: 'CASCADE' },
+    { cascade: ['insert', 'update'] },
   )
   answerOptions: AnswerOptionEntity[];
 
-  @ManyToOne(() => BriefEntity, (brief) => brief.questions)
+  @ManyToOne(() => BriefEntity, (brief) => brief.questions, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   brief: BriefEntity;
 
   @OneToMany(
     () => AnswersBriefEntity,
     (answersBrief) => answersBrief.question,
-    { onDelete: 'CASCADE' },
+    { cascade: ['insert', 'update'] },
   )
   answersBriefs: AnswersBriefEntity[];
 }
