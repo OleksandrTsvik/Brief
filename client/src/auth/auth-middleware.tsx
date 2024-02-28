@@ -19,18 +19,16 @@ export default function AuthMiddleware({ children }: Props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useLayoutEffect(() => {
-    setTimeout(() => {
-      if (!accessToken) {
-        setIsLoading(false);
-        return;
-      }
+    if (!accessToken) {
+      setIsLoading(false);
+      return;
+    }
 
-      info({ accessToken })
-        .unwrap()
-        .then((response) => appDispatch(setCredentials(response)))
-        .catch((error) => console.log(error))
-        .finally(() => setIsLoading(false));
-    }, 1000);
+    info({ accessToken })
+      .unwrap()
+      .then((response) => appDispatch(setCredentials(response)))
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

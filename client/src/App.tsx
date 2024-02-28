@@ -1,4 +1,5 @@
 import { App as AntdApp, ConfigProvider, Layout } from 'antd';
+import ukUA from 'antd/locale/uk_UA';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
@@ -10,7 +11,10 @@ import './app.css';
 export default function App() {
   return (
     <Provider store={store}>
-      <ConfigProvider theme={{ components: { Layout: { headerHeight: 50 } } }}>
+      <ConfigProvider
+        locale={ukUA}
+        theme={{ components: { Layout: { headerHeight: 50 } } }}
+      >
         <AntdApp>
           <Layout className="app__wrapper">
             <AuthMiddleware>
