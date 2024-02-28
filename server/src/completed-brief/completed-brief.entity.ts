@@ -15,7 +15,7 @@ export class CompletedBriefEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('datetime')
+  @Column('timestamp with time zone')
   @IsDate()
   dateCompleted: Date;
 

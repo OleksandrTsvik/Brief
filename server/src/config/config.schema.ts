@@ -4,7 +4,11 @@ export const configValidationSchema = Joi.object({
   PORT: Joi.number().default(5001),
   GLOBAL_API_PREFIX: Joi.string().default('api'),
 
-  SQLITE_DATABASE: Joi.string().required(),
+  POSTGRES_HOST: Joi.string().required(),
+  POSTGRES_PORT: Joi.number().required(),
+  POSTGRES_USERNAME: Joi.string().required(),
+  POSTGRES_PASSWORD: Joi.string().required(),
+  POSTGRES_DATABASE: Joi.string().required(),
 
   FRONTEND_URL: Joi.string().required(),
 

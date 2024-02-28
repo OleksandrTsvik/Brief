@@ -2,7 +2,11 @@ export default interface ConfigProps {
   port: number;
   globalApiPrefix: string;
   database: {
-    sqlite?: string;
+    host?: string;
+    port?: number;
+    username?: string;
+    password?: string;
+    database?: string;
   };
   frontendUrl?: string;
   jwtAccess: {

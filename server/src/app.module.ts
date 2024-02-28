@@ -24,11 +24,16 @@ import { QuestionModule } from './question/question.module';
         const config = configuration();
 
         return {
-          type: 'sqlite',
+          type: 'postgres',
+          host: config.database.host,
+          port: config.database.port,
+          username: config.database.username,
+          password: config.database.password,
+          database: config.database.database,
+          timezone: 'UTC',
+          // entities: [__dirname + '/../**/*.entity.{js,ts}'],
           autoLoadEntities: true,
           synchronize: true,
-          database: config.database.sqlite,
-          timezone: 'UTC',
         };
       },
     }),
