@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CompletedBriefEntity } from './completed-brief.entity';
 import { CompleteBriefDto } from './dto/complete-brief.dto';
 import { UpdateBriefDto } from './dto/update-brief.dto';
+import { AnswerEntity } from '../answers-brief/answer.entity';
 import { AnswersBriefEntity } from '../answers-brief/answers-brief.entity';
 import { BriefEntity } from '../brief/brief.entity';
 
@@ -17,6 +18,8 @@ export class CompletedBriefService {
     private readonly briefRepository: Repository<BriefEntity>,
     @InjectRepository(AnswersBriefEntity)
     private readonly answersBriefRepository: Repository<AnswersBriefEntity>,
+    @InjectRepository(AnswerEntity)
+    private readonly answerRepository: Repository<AnswerEntity>,
   ) {}
 
   async completeBrief(briefId: string, completeBriefDto: CompleteBriefDto[]) {
@@ -39,7 +42,7 @@ export class CompletedBriefService {
       const answerBrief = this.answersBriefRepository.create({
         completedBrief,
         question: { id: answerBriefDto.questionId },
-        answer: answerBriefDto.answer,
+        answers: this.createAnswers(answerBriefDto.answer),
       });
 
       answersBrief.push(answerBrief);
@@ -64,12 +67,20 @@ export class CompletedBriefService {
         id: answerBriefDto.answerBriefId,
         completedBrief,
         question: { id: answerBriefDto.questionId },
-        answer: answerBriefDto.answer,
+        answers: this.createAnswers(answerBriefDto.answer),
       });
 
       answersBrief.push(answerBrief);
     }
 
     await this.answersBriefRepository.save(answersBrief);
+  }
+
+  private createAnswers(answer: string | string[]): AnswerEntity[] {
+    const answers = Array.isArray(answer) ? answer : [answer];
+
+    return this.answerRepository.create(
+      answers.map((item) => ({ answer: item })),
+    );
   }
 }

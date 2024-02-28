@@ -22,7 +22,7 @@ export default function BriefPage() {
       <Typography.Title style={{ textAlign: 'center' }}>
         Бриф &#171;{data.title}&#187;
       </Typography.Title>
-      <BriefForm questions={data.questions} />
+      <BriefForm briefId={data.id} questions={data.questions} />
     </>
   );
 }

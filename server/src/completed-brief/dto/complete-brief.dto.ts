@@ -7,5 +7,5 @@ export class CompleteBriefDto {
 
   @IsNotEmpty()
   @IsString()
-  answer: string;
+  answer: string | string[];
 }
