@@ -2,6 +2,7 @@ import { Breadcrumb, Tag } from 'antd';
 import { useMemo } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
+import CompletedBriefDownloadPdf from './completed-brief-download.pdf';
 import CompletedBriefForm from './completed-brief.form';
 import initialValuesParse from './initial-values.parse';
 import { useGetCompletedBriefQuery } from '../../api/completed-brief.api';
@@ -41,6 +42,9 @@ export default function CompletedBriefUpdatePage() {
         ]}
         style={{ marginBottom: 16 }}
       />
+      <div style={{ textAlign: 'right', marginBottom: 8 }}>
+        <CompletedBriefDownloadPdf data={data} />
+      </div>
       <CompletedBriefForm
         id={data.id}
         questions={data.answersBriefs.map((item) => ({

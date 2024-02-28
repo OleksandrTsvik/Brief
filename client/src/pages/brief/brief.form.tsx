@@ -1,3 +1,5 @@
+import { App } from 'antd';
+
 import BriefSaveForm, { FormValues } from './brief-save.form';
 import {
   CompleteBriefRequest,
@@ -11,6 +13,8 @@ interface Props {
 }
 
 export default function BriefForm({ briefId, questions }: Props) {
+  const { notification } = App.useApp();
+
   const [completeBrief, { isLoading, isError, error }] =
     useCompleteBriefMutation();
 
@@ -25,7 +29,13 @@ export default function BriefForm({ briefId, questions }: Props) {
 
     completeBrief(body)
       .unwrap()
-      .then(() => resetFields());
+      .then(() => {
+        resetFields();
+        notification.success({
+          message: 'Дані успішно відправлено',
+          placement: 'bottomRight',
+        });
+      });
   };
 
   return (

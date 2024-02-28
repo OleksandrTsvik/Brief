@@ -76,6 +76,7 @@ export const completedBriefApi = createApi({
 export const {
   useGetCompletedBriefsQuery,
   useGetCompletedBriefQuery,
+  useLazyGetCompletedBriefQuery,
   useCompleteBriefMutation,
   useUpdateCompletedBriefMutation,
   useDeleteCompletedBriefMutation,
