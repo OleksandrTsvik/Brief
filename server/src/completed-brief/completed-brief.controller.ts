@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -17,11 +18,13 @@ import { AtGuard } from '../auth/guards/at.guard';
 export class CompletedBriefController {
   constructor(private readonly completedBriefService: CompletedBriefService) {}
 
+  @UseGuards(AtGuard)
   @Get()
   findAll() {
     return this.completedBriefService.findAll();
   }
 
+  @UseGuards(AtGuard)
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.completedBriefService.findById(id);
@@ -42,5 +45,11 @@ export class CompletedBriefController {
     @Body() completeBriefDto: UpdateBriefDto[],
   ) {
     return this.completedBriefService.updateAnswers(id, completeBriefDto);
+  }
+
+  @UseGuards(AtGuard)
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.completedBriefService.delete(id);
   }
 }

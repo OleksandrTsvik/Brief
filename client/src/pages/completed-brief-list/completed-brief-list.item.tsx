@@ -1,5 +1,6 @@
 import { List, Tag } from 'antd';
 
+import DeleteCompletedBriefButton from './delete-completed-brief.button';
 import UpdateCompletedBriefButton from './update-completed-brief.button';
 import { CompletedBrief } from '../../models/completed-brief';
 import formatDate from '../../utils/format-date';
@@ -10,7 +11,12 @@ interface Props {
 
 export default function CompletedBriefListItem({ item }: Props) {
   return (
-    <List.Item actions={[<UpdateCompletedBriefButton id={item.id} />]}>
+    <List.Item
+      actions={[
+        <UpdateCompletedBriefButton id={item.id} />,
+        <DeleteCompletedBriefButton item={item} />,
+      ]}
+    >
       <div>
         <Tag>{formatDate(item.dateCompleted)}</Tag>
         {item.brief.title}

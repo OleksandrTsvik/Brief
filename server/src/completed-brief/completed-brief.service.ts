@@ -134,9 +134,15 @@ export class CompletedBriefService {
       }
     }
 
-    await this.answerRepository.delete({ id: In(deleteOldAnswerIds) });
+    if (deleteOldAnswerIds.length > 0) {
+      await this.answerRepository.delete({ id: In(deleteOldAnswerIds) });
+    }
 
     await this.answersBriefRepository.save(newAnswersBrief);
+  }
+
+  async delete(id: string) {
+    await this.completedBriefRepository.delete({ id });
   }
 
   private isNewAnswer(

@@ -63,6 +63,13 @@ export const completedBriefApi = createApi({
       }),
       invalidatesTags: ['CompletedBrief'],
     }),
+    deleteCompletedBrief: builder.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['CompletedBrief'],
+    }),
   }),
 });
 
@@ -71,4 +78,5 @@ export const {
   useGetCompletedBriefQuery,
   useCompleteBriefMutation,
   useUpdateCompletedBriefMutation,
+  useDeleteCompletedBriefMutation,
 } = completedBriefApi;
