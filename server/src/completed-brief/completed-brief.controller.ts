@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 
 import { CompletedBriefService } from './completed-brief.service';
 import { CompleteBriefDto } from './dto/complete-brief.dto';
@@ -8,6 +16,11 @@ import { AtGuard } from '../auth/guards/at.guard';
 @Controller('completed-brief')
 export class CompletedBriefController {
   constructor(private readonly completedBriefService: CompletedBriefService) {}
+
+  @Get()
+  findAll() {
+    return this.completedBriefService.findAll();
+  }
 
   @Post(':briefId')
   completeBrief(

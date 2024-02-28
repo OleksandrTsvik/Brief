@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithJwt } from './base-query-with-jwt';
+import { CompletedBrief } from '../models/completed-brief';
 
 export interface CompleteBriefRequest {
   briefId: string;
@@ -17,6 +18,13 @@ export const completedBriefApi = createApi({
   baseQuery: baseQueryWithJwt('/completed-brief'),
   tagTypes: ['CompletedBrief'],
   endpoints: (builder) => ({
+    getCompletedBriefs: builder.query<CompletedBrief[], void>({
+      query: () => ({
+        url: '/',
+        method: 'GET',
+      }),
+      providesTags: ['CompletedBrief'],
+    }),
     completeBrief: builder.mutation<void, CompleteBriefRequest>({
       query: ({ briefId, data }) => ({
         url: `/${briefId}`,
@@ -28,4 +36,5 @@ export const completedBriefApi = createApi({
   }),
 });
 
-export const { useCompleteBriefMutation } = completedBriefApi;
+export const { useGetCompletedBriefsQuery, useCompleteBriefMutation } =
+  completedBriefApi;

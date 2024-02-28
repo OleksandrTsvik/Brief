@@ -22,6 +22,14 @@ export class CompletedBriefService {
     private readonly answerRepository: Repository<AnswerEntity>,
   ) {}
 
+  findAll() {
+    return this.completedBriefRepository.find({
+      select: { id: true, dateCompleted: true, brief: { title: true } },
+      relations: { brief: true },
+      order: { dateCompleted: 'ASC' },
+    });
+  }
+
   async completeBrief(briefId: string, completeBriefDto: CompleteBriefDto[]) {
     const brief = await this.briefRepository.findOneBy({ id: briefId });
 
