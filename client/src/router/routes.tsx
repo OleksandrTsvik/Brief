@@ -14,6 +14,7 @@ import {
   BriefQuestionsCreatePage,
   BriefQuestionsUpdatePage,
   CompletedBriefListPage,
+  CompletedBriefUpdatePage,
 } from '../pages';
 
 const routes: RouteObject[] = [
@@ -52,7 +53,7 @@ const routes: RouteObject[] = [
             path: 'completed-briefs',
             children: [
               { index: true, element: <CompletedBriefListPage /> },
-              { path: 'update/:id', element: <>Update completed-brief</> },
+              { path: 'update/:id', element: <CompletedBriefUpdatePage /> },
             ],
           },
         ],

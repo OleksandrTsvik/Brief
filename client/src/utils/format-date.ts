@@ -5,7 +5,10 @@ export default function formatDate(date: Date | string): string {
   const month = addZero(newDate.getMonth() + 1);
   const year = newDate.getFullYear();
 
-  return `${day}.${month}.${year}`;
+  const hours = addZero(newDate.getHours());
+  const minutes = addZero(newDate.getMinutes());
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 
 function addZero(num: number): string {

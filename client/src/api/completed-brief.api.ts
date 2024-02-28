@@ -1,7 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithJwt } from './base-query-with-jwt';
-import { CompletedBrief } from '../models/completed-brief';
+import {
+  CompletedBrief,
+  CompletedBriefWithAnswers,
+} from '../models/completed-brief';
 
 export interface CompleteBriefRequest {
   briefId: string;
@@ -10,6 +13,16 @@ export interface CompleteBriefRequest {
 
 export interface CompleteBriefData {
   questionId: string;
+  answer: string | string[];
+}
+
+export interface UpdateCompleteBriefRequest {
+  id: string;
+  data: UpdateCompleteBriefData[];
+}
+
+export interface UpdateCompleteBriefData {
+  answerBriefId: string;
   answer: string | string[];
 }
 
@@ -25,6 +38,15 @@ export const completedBriefApi = createApi({
       }),
       providesTags: ['CompletedBrief'],
     }),
+    getCompletedBrief: builder.query<CompletedBriefWithAnswers, { id: string }>(
+      {
+        query: ({ id }) => ({
+          url: `/${id}`,
+          method: 'GET',
+        }),
+        providesTags: ['CompletedBrief'],
+      },
+    ),
     completeBrief: builder.mutation<void, CompleteBriefRequest>({
       query: ({ briefId, data }) => ({
         url: `/${briefId}`,
@@ -33,8 +55,20 @@ export const completedBriefApi = createApi({
       }),
       invalidatesTags: ['CompletedBrief'],
     }),
+    updateCompletedBrief: builder.mutation<void, UpdateCompleteBriefRequest>({
+      query: ({ id, data }) => ({
+        url: `/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['CompletedBrief'],
+    }),
   }),
 });
 
-export const { useGetCompletedBriefsQuery, useCompleteBriefMutation } =
-  completedBriefApi;
+export const {
+  useGetCompletedBriefsQuery,
+  useGetCompletedBriefQuery,
+  useCompleteBriefMutation,
+  useUpdateCompletedBriefMutation,
+} = completedBriefApi;

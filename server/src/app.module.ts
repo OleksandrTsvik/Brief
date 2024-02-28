@@ -28,6 +28,7 @@ import { QuestionModule } from './question/question.module';
           autoLoadEntities: true,
           synchronize: true,
           database: config.database.sqlite,
+          timezone: 'UTC',
         };
       },
     }),

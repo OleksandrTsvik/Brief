@@ -22,6 +22,11 @@ export class CompletedBriefController {
     return this.completedBriefService.findAll();
   }
 
+  @Get(':id')
+  findById(@Param('id') id: string) {
+    return this.completedBriefService.findById(id);
+  }
+
   @Post(':briefId')
   completeBrief(
     @Param('briefId') briefId: string,
@@ -32,7 +37,10 @@ export class CompletedBriefController {
 
   @UseGuards(AtGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() completeBriefDto: UpdateBriefDto[]) {
-    return this.completedBriefService.update(id, completeBriefDto);
+  updateAnswers(
+    @Param('id') id: string,
+    @Body() completeBriefDto: UpdateBriefDto[],
+  ) {
+    return this.completedBriefService.updateAnswers(id, completeBriefDto);
   }
 }

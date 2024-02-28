@@ -10,7 +10,7 @@ export default function BriefUpdatePage() {
   const { data, isFetching } = useGetBriefQuery({ id: id as string });
 
   const navigate = useNavigate();
-  const [createBrief, { isLoading, isError, error }] = useUpdateBriefMutation();
+  const [updateBrief, { isLoading, isError, error }] = useUpdateBriefMutation();
 
   if (isFetching) {
     return <CustomSpin />;
@@ -21,7 +21,7 @@ export default function BriefUpdatePage() {
   }
 
   const handleSubmit = (values: FormValues) => {
-    createBrief({ id: id as string, ...values })
+    updateBrief({ id: id as string, ...values })
       .unwrap()
       .then(() => navigate('/admin/briefs'));
   };

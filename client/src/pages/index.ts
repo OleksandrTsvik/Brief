@@ -7,6 +7,7 @@ import BriefQuestionsCreatePage from './brief-questions-create/brief-questions-c
 import BriefQuestionsUpdatePage from './brief-questions-update/brief-questions-update.page';
 import BriefUpdatePage from './brief-update/brief-update.page';
 import CompletedBriefListPage from './completed-brief-list/completed-brief-list.page';
+import CompletedBriefUpdatePage from './completed-brief-update/completed-brief-update.page';
 import NotFoundPage from './not-found/not-found.page';
 
 export {
@@ -19,5 +20,6 @@ export {
   BriefQuestionsUpdatePage,
   BriefUpdatePage,
   CompletedBriefListPage,
+  CompletedBriefUpdatePage,
   NotFoundPage,
 };

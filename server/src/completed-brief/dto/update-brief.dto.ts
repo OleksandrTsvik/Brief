@@ -6,10 +6,6 @@ export class UpdateBriefDto {
   answerBriefId: string;
 
   @IsNotEmpty()
-  @IsUUID()
-  questionId: string;
-
-  @IsNotEmpty()
   @IsString()
-  answer: string;
+  answer: string | string[];
 }

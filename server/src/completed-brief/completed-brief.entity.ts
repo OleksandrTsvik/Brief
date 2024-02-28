@@ -15,7 +15,7 @@ export class CompletedBriefEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('date')
+  @Column('datetime')
   @IsDate()
   dateCompleted: Date;
 

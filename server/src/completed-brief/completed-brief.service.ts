@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { CompletedBriefEntity } from './completed-brief.entity';
 import { CompleteBriefDto } from './dto/complete-brief.dto';
@@ -30,6 +30,40 @@ export class CompletedBriefService {
     });
   }
 
+  findById(id: string) {
+    return this.completedBriefRepository.findOne({
+      where: { id },
+      select: {
+        id: true,
+        dateCompleted: true,
+        brief: { id: true, title: true },
+        answersBriefs: {
+          id: true,
+          answers: { id: true, answer: true },
+          question: {
+            id: true,
+            position: true,
+            question: true,
+            type: true,
+            answerOptions: { id: true, position: true, answerOption: true },
+          },
+        },
+      },
+      relations: {
+        brief: true,
+        answersBriefs: {
+          answers: true,
+          question: { answerOptions: true },
+        },
+      },
+      order: {
+        answersBriefs: {
+          question: { position: 'ASC', answerOptions: { position: 'ASC' } },
+        },
+      },
+    });
+  }
+
   async completeBrief(briefId: string, completeBriefDto: CompleteBriefDto[]) {
     const brief = await this.briefRepository.findOneBy({ id: briefId });
 
@@ -50,7 +84,7 @@ export class CompletedBriefService {
       const answerBrief = this.answersBriefRepository.create({
         completedBrief,
         question: { id: answerBriefDto.questionId },
-        answers: this.createAnswers(answerBriefDto.answer),
+        answers: this.createAnswerEntities(answerBriefDto.answer),
       });
 
       answersBrief.push(answerBrief);
@@ -59,32 +93,66 @@ export class CompletedBriefService {
     await this.answersBriefRepository.save(answersBrief);
   }
 
-  async update(id: string, updateBriefDto: UpdateBriefDto[]) {
-    const completedBrief = await this.completedBriefRepository.findOneBy({
-      id,
+  async updateAnswers(id: string, updateBriefDto: UpdateBriefDto[]) {
+    const completedBrief = await this.completedBriefRepository.findOne({
+      where: { id },
+      select: {
+        answersBriefs: {
+          id: true,
+          answers: { id: true, answer: true },
+        },
+      },
+      relations: { answersBriefs: { answers: true } },
     });
 
     if (!completedBrief) {
       throw new NotFoundException(`Завершений бриф з id = '${id}' не знайдено`);
     }
 
-    const answersBrief: AnswersBriefEntity[] = [];
+    const newAnswersBrief: AnswersBriefEntity[] = [];
+    const deleteOldAnswerIds: string[] = [];
 
     for (const answerBriefDto of updateBriefDto) {
-      const answerBrief = this.answersBriefRepository.create({
-        id: answerBriefDto.answerBriefId,
-        completedBrief,
-        question: { id: answerBriefDto.questionId },
-        answers: this.createAnswers(answerBriefDto.answer),
-      });
+      const oldAnswerBrief = completedBrief.answersBriefs.find(
+        (item) => item.id === answerBriefDto.answerBriefId,
+      );
 
-      answersBrief.push(answerBrief);
+      if (
+        oldAnswerBrief &&
+        this.isNewAnswer(oldAnswerBrief.answers, answerBriefDto.answer)
+      ) {
+        deleteOldAnswerIds.push(
+          ...oldAnswerBrief.answers.map((item) => item.id),
+        );
+
+        const newAnswerBrief = this.answersBriefRepository.create({
+          id: answerBriefDto.answerBriefId,
+          answers: this.createAnswerEntities(answerBriefDto.answer),
+        });
+
+        newAnswersBrief.push(newAnswerBrief);
+      }
     }
 
-    await this.answersBriefRepository.save(answersBrief);
+    await this.answerRepository.delete({ id: In(deleteOldAnswerIds) });
+
+    await this.answersBriefRepository.save(newAnswersBrief);
   }
 
-  private createAnswers(answer: string | string[]): AnswerEntity[] {
+  private isNewAnswer(
+    oldAnswer: { answer: string }[],
+    newAnswer: string | string[],
+  ): boolean {
+    const oldAnswerArray = oldAnswer.map((item) => item.answer);
+    const newAnswerArray = Array.isArray(newAnswer) ? newAnswer : [newAnswer];
+
+    return !(
+      oldAnswerArray.length === newAnswerArray.length &&
+      oldAnswerArray.every((value) => newAnswerArray.includes(value))
+    );
+  }
+
+  private createAnswerEntities(answer: string | string[]): AnswerEntity[] {
     const answers = Array.isArray(answer) ? answer : [answer];
 
     return this.answerRepository.create(
