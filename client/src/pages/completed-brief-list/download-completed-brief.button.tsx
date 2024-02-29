@@ -27,8 +27,8 @@ export default function DownloadCompletedBriefButton({ id }: Props) {
       saveAs(blob, fileName);
     } catch {
       notification.error({
-        message: 'Виникла помилка під час завантаження PDF',
-        placement: 'bottomRight',
+        message: 'Помилка',
+        description: 'Виникла помилка під час завантаження PDF',
       });
     }
   };

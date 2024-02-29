@@ -15,7 +15,7 @@ export default function App() {
         locale={ukUA}
         theme={{ components: { Layout: { headerHeight: 50 } } }}
       >
-        <AntdApp>
+        <AntdApp notification={{ placement: 'bottomRight' }}>
           <Layout className="app__wrapper">
             <AuthMiddleware>
               <RouterProvider router={router} />

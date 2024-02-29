@@ -32,8 +32,8 @@ export default function BriefForm({ briefId, questions }: Props) {
       .then(() => {
         resetFields();
         notification.success({
-          message: 'Дані успішно відправлено',
-          placement: 'bottomRight',
+          message: 'Успіх',
+          description: 'Дані успішно відправлено',
         });
       });
   };

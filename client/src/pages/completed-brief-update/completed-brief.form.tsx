@@ -36,8 +36,8 @@ export default function CompletedBriefForm({
       .unwrap()
       .then(() =>
         notification.success({
-          message: 'Дані успішно оновлено',
-          placement: 'bottomRight',
+          message: 'Успіх',
+          description: 'Дані успішно оновлено',
         }),
       );
   };
