@@ -14,6 +14,9 @@ export default function CompletedBriefPdf({ data }: Props) {
   return (
     <Document>
       <Page style={styles.body}>
+        <Text style={styles.header} fixed>
+          ID: {data.id}
+        </Text>
         <Text style={styles.titleDate}>{formatDate(data.dateCompleted)}</Text>
         <Text style={styles.title}>{data.brief.title}</Text>
         {data.answersBriefs.map((item, index) => (

@@ -8,9 +8,17 @@ Font.register({
 export const styles = StyleSheet.create({
   body: {
     fontFamily: 'Roboto',
-    paddingTop: 20,
+    paddingTop: 25,
     paddingHorizontal: 25,
     paddingBottom: 40,
+  },
+  header: {
+    position: 'absolute',
+    top: 10,
+    right: 25,
+    fontSize: 12,
+    textAlign: 'right',
+    color: 'grey',
   },
   titleDate: {
     fontSize: 12,

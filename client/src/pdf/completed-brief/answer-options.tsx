@@ -1,6 +1,7 @@
 import { Text } from '@react-pdf/renderer';
 
 import { styles } from './completed-brief.styles';
+import Tab from './tab.pdf';
 import { Question, QuestionType } from '../../models/question';
 
 interface Props {
@@ -20,7 +21,8 @@ export default function AnswerOptions({ answerIndex, question }: Props) {
           </Text>
           {question.answerOptions.map((item, index) => (
             <Text key={item.id}>
-              &#9;&#9;&#9;&#9;{answerIndex}.{index + 1})&nbsp;
+              <Tab />
+              {answerIndex}.{index + 1})&nbsp;
               {item.answerOption}
             </Text>
           ))}

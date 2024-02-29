@@ -1,6 +1,7 @@
 import { Text } from '@react-pdf/renderer';
 
 import { styles } from './completed-brief.styles';
+import Tab from './tab.pdf';
 
 interface Props {
   answers: string[];
@@ -20,7 +21,10 @@ export default function Answer({ answers }: Props) {
     <>
       <Text style={styles.textTitleAnswer}>Відповідь:</Text>
       {answers.map((answer, index) => (
-        <Text key={index}>&#9;&#9;&#9;&#9;{answer}</Text>
+        <Text key={index}>
+          <Tab />
+          {index + 1})&nbsp;{answer}
+        </Text>
       ))}
     </>
   );
