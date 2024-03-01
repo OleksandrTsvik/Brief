@@ -69,7 +69,7 @@ export default function BriefQuestionsSaveForm({
         label="Запитання"
         rules={[{ required: true, message: 'Введіть запитання' }]}
       >
-        <Input />
+        <Input.TextArea autoSize={{ minRows: 1, maxRows: 6 }} />
       </Form.Item>
 
       <Form.Item

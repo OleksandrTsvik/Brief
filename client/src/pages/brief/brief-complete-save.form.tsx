@@ -1,5 +1,6 @@
 import { Button, Checkbox, Form, Input, Radio, Space, Typography } from 'antd';
 
+import styles from './brief.module.css';
 import getOtherInputInitValue from './get-other-input-init-value';
 import { CheckboxInput, ErrorMessage, RadioInput } from '../../components';
 import { Question, QuestionType } from '../../models/question';
@@ -67,12 +68,17 @@ export default function BriefCompleteSaveForm({
           label={
             <>
               <Typography.Text strong>{index + 1}.&nbsp;</Typography.Text>
-              <Typography.Text>{question.question}</Typography.Text>
+              <Typography.Text style={{ whiteSpace: 'pre-wrap' }}>
+                {question.question}
+              </Typography.Text>
             </>
           }
           rules={[{ required: true, message: "Обов'язкове поле" }]}
+          labelCol={{ className: styles.questionLabel }}
         >
-          {question.type === QuestionType.Input && <Input />}
+          {question.type === QuestionType.Input && (
+            <Input.TextArea autoSize={{ minRows: 1, maxRows: 6 }} />
+          )}
 
           {(question.type === QuestionType.Single ||
             question.type === QuestionType.SingleWithInput) && (

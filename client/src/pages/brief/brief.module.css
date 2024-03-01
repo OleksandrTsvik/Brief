@@ -1,0 +1,3 @@
+.questionLabel > label {
+  align-items: flex-start !important;
+}

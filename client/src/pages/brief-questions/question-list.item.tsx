@@ -23,7 +23,7 @@ export default function QuestionListItem({ index, item }: Props) {
             <DeleteQuestionButton item={item} />,
           ]}
         >
-          <div>
+          <div style={{ whiteSpace: 'pre-wrap' }}>
             <DragOutlined
               {...provided.dragHandleProps}
               style={{ cursor: 'grab', fontSize: 18, marginRight: 8 }}
