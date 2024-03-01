@@ -1,6 +1,6 @@
 import { App } from 'antd';
 
-import BriefSaveForm, { FormValues } from './brief-save.form';
+import BriefCompleteSaveForm, { FormValues } from './brief-complete-save.form';
 import {
   CompleteBriefRequest,
   useCompleteBriefMutation,
@@ -39,7 +39,7 @@ export default function BriefForm({ briefId, questions }: Props) {
   };
 
   return (
-    <BriefSaveForm
+    <BriefCompleteSaveForm
       questions={questions}
       submitText="Відправити"
       isLoading={isLoading}

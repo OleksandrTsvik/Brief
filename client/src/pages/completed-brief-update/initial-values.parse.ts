@@ -17,6 +17,7 @@ export default function initialValuesParse(
 
     switch (answerBrief.question.type) {
       case QuestionType.Multiple:
+      case QuestionType.MultipleWithInput:
         value = answers;
         break;
       default:

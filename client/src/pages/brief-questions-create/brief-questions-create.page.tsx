@@ -2,7 +2,7 @@ import { Breadcrumb } from 'antd';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import BriefQuestionsSaveForm, {
-  FormFinishValues,
+  FormValues,
 } from './brief-questions-save-form';
 import { useGetBriefQuery } from '../../api/brief.api';
 import { useCreateQuestionMutation } from '../../api/question.api';
@@ -26,8 +26,8 @@ export default function BriefQuestionsCreatePage() {
     return <Navigate to="/not-found" replace />;
   }
 
-  const handleSubmit = (body: FormFinishValues) => {
-    createQuestion({ briefId: data.id, ...body })
+  const handleSubmit = (body: FormValues) => {
+    createQuestion({ ...body, briefId: data.id, position: -1 })
       .unwrap()
       .then(() => navigate(`/admin/briefs/questions/${data.id}`));
   };

@@ -15,17 +15,13 @@ export interface FormValues {
   answerOptions: AnswerOption[];
 }
 
-export interface FormFinishValues extends FormValues {
-  position: number;
-}
-
 interface Props {
   submitText: string;
   initialValues: Partial<FormValues>;
   isLoading: boolean;
   isError: boolean;
   error: unknown;
-  onSubmit: (values: FormFinishValues) => void;
+  onSubmit: (values: FormValues) => void;
 }
 
 export default function BriefQuestionsSaveForm({
@@ -47,8 +43,7 @@ export default function BriefQuestionsSaveForm({
         }))
       : [];
 
-    const body: FormFinishValues = {
-      position: -1,
+    const body: FormValues = {
       ...values,
       answerOptions,
     };
@@ -86,15 +81,23 @@ export default function BriefQuestionsSaveForm({
           <Space direction="vertical">
             <Radio value={QuestionType.Input}>Текстове поле</Radio>
             <Radio value={QuestionType.Single}>Вибір однієї відповіді</Radio>
+            <Radio value={QuestionType.SingleWithInput}>
+              Вибір однієї відповіді з можливістю ввести власну
+            </Radio>
             <Radio value={QuestionType.Multiple}>
               Вибір декількох відповідей
+            </Radio>
+            <Radio value={QuestionType.MultipleWithInput}>
+              Вибір декількох відповідей з можливістю ввести власну
             </Radio>
           </Space>
         </Radio.Group>
       </Form.Item>
 
       {(answerType === QuestionType.Single ||
-        answerType === QuestionType.Multiple) && (
+        answerType === QuestionType.Multiple ||
+        answerType === QuestionType.SingleWithInput ||
+        answerType === QuestionType.MultipleWithInput) && (
         <AnswerOptionsList
           getFieldValue={() => form.getFieldValue('answerOptions')}
           setFieldValue={(value) => form.setFieldValue('answerOptions', value)}

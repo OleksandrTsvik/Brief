@@ -27,7 +27,10 @@ export default function CompletedBriefPdf({ data }: Props) {
               <Text>{item.question.question}</Text>
             </Text>
             <AnswerOptions answerIndex={index + 1} question={item.question} />
-            <Answer answers={item.answers.map((answer) => answer.answer)} />
+            <Answer
+              answers={item.answers.map((answer) => answer.answer)}
+              question={item.question}
+            />
           </View>
         ))}
         <Text

@@ -5,7 +5,9 @@ import {
   useUpdateCompletedBriefMutation,
 } from '../../api/completed-brief.api';
 import { Question } from '../../models/question';
-import BriefSaveForm, { FormValues } from '../brief/brief-save.form';
+import BriefCompleteSaveForm, {
+  FormValues,
+} from '../brief/brief-complete-save.form';
 
 interface Props {
   id: string;
@@ -43,7 +45,7 @@ export default function CompletedBriefForm({
   };
 
   return (
-    <BriefSaveForm
+    <BriefCompleteSaveForm
       questions={questions}
       submitText="Оновити дані"
       initialValues={initialValues}

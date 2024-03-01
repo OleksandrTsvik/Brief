@@ -13,6 +13,8 @@ export default function AnswerOptions({ answerIndex, question }: Props) {
   switch (question.type) {
     case QuestionType.Single:
     case QuestionType.Multiple:
+    case QuestionType.SingleWithInput:
+    case QuestionType.MultipleWithInput:
       return (
         <>
           <Text style={styles.textTitle}>

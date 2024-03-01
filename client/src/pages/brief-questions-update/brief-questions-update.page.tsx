@@ -7,7 +7,7 @@ import {
 } from '../../api/question.api';
 import { CustomSpin } from '../../components';
 import BriefQuestionsSaveForm, {
-  FormFinishValues,
+  FormValues,
 } from '../brief-questions-create/brief-questions-save-form';
 
 export default function BriefQuestionsUpdatePage() {
@@ -29,8 +29,8 @@ export default function BriefQuestionsUpdatePage() {
     return <Navigate to="/not-found" replace />;
   }
 
-  const handleSubmit = (body: FormFinishValues) => {
-    updateQuestion({ id: data.id, ...body, position: data.position })
+  const handleSubmit = (body: FormValues) => {
+    updateQuestion({ ...body, id: data.id, position: data.position })
       .unwrap()
       .then(() => navigate(`/admin/briefs/questions/${data.brief.id}`));
   };
