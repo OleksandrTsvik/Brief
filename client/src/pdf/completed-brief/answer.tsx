@@ -12,7 +12,7 @@ interface Props {
 export default function Answer({ answers, question }: Props) {
   if (answers.length === 1) {
     return (
-      <Text>
+      <Text style={styles.marginAnswer}>
         <Text style={styles.textTitleAnswer}>Відповідь:&nbsp;</Text>
         {isOtherAnswer(answers[0], question) ? (
           <Text>(інша)&nbsp;{answers[0]}</Text>
@@ -25,7 +25,9 @@ export default function Answer({ answers, question }: Props) {
 
   return (
     <>
-      <Text style={styles.textTitleAnswer}>Відповідь:</Text>
+      <Text style={[styles.textTitleAnswer, styles.marginAnswer]}>
+        Відповідь:
+      </Text>
       {answers.map((answer, index) => (
         <Text key={index}>
           <Tab />

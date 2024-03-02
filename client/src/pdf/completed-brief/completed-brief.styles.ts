@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   text: {
     fontSize: 14,
     textAlign: 'justify',
-    marginBottom: 20,
+    marginBottom: 28,
   },
   index: {
     color: '#a61d24',
@@ -43,6 +43,9 @@ export const styles = StyleSheet.create({
   textTitleAnswer: {
     textTransform: 'uppercase',
     color: '#000000',
+  },
+  marginAnswer: {
+    marginTop: 8,
   },
   questionType: {
     fontSize: 10,
