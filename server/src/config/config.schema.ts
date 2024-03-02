@@ -14,4 +14,7 @@ export const configValidationSchema = Joi.object({
 
   JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
   JWT_ACCESS_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+
+  ADMIN_USERNAME: Joi.string().required(),
+  ADMIN_PASSWORD: Joi.string().required(),
 });

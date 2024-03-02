@@ -5,9 +5,9 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AdminEntity } from './admin.entity';
+import { AdminSeed } from './admin.seed';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { DataSeed } from './data.seed';
 import { AtStrategy } from './strategies/at.strategy';
 
 @Module({
@@ -18,7 +18,7 @@ import { AtStrategy } from './strategies/at.strategy';
     ConfigModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, AtStrategy, DataSeed],
+  providers: [AuthService, AtStrategy, AdminSeed],
   exports: [AtStrategy],
 })
 export class AuthModule {}

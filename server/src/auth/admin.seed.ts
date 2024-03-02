@@ -2,16 +2,17 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import configuration from '../config/configuration';
 
 @Injectable()
-export class DataSeed implements OnApplicationBootstrap {
+export class AdminSeed implements OnApplicationBootstrap {
   constructor(private readonly authService: AuthService) {}
 
   async onApplicationBootstrap() {
-    const newAdmin: LoginDto = {
-      username: 'admin',
-      password: '123456',
-    };
+    const config = configuration();
+    const { username, password } = config.admin;
+
+    const newAdmin: LoginDto = { username, password };
 
     const isExist = await this.authService.existByUsername(newAdmin.username);
 

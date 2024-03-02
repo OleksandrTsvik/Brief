@@ -13,4 +13,8 @@ export default interface ConfigProps {
     secret?: string;
     expiresIn?: string;
   };
+  admin: {
+    username?: string;
+    password?: string;
+  };
 }

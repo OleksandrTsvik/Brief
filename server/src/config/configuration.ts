@@ -15,4 +15,8 @@ export default (): ConfigProps => ({
     secret: process.env.JWT_ACCESS_TOKEN_SECRET,
     expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
   },
+  admin: {
+    username: process.env.ADMIN_USERNAME,
+    password: process.env.ADMIN_PASSWORD,
+  },
 });
