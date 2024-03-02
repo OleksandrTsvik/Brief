@@ -64,4 +64,6 @@ const routes: RouteObject[] = [
   },
 ];
 
-export const router = createBrowserRouter(routes);
+export const router = createBrowserRouter(routes, {
+  basename: import.meta.env.BASE_URL,
+});

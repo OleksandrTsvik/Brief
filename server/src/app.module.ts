@@ -34,6 +34,7 @@ import { QuestionModule } from './question/question.module';
           // entities: [__dirname + '/../**/*.entity.{js,ts}'],
           autoLoadEntities: true,
           synchronize: true,
+          ssl: true,
         };
       },
     }),
