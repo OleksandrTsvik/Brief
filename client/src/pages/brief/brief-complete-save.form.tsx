@@ -67,7 +67,9 @@ export default function BriefCompleteSaveForm({
           name={question.id}
           label={
             <>
-              <Typography.Text strong>{index + 1}.&nbsp;</Typography.Text>
+              <Typography.Text strong style={{ whiteSpace: 'nowrap' }}>
+                {index + 1}.&nbsp;
+              </Typography.Text>
               <Typography.Text style={{ whiteSpace: 'pre-wrap' }}>
                 {question.question}
               </Typography.Text>

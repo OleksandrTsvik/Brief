@@ -34,7 +34,7 @@ export default function AuthMiddleware({ children }: Props) {
   }, []);
 
   if (isLoading) {
-    return <Spin fullscreen tip="Loading app ..." />;
+    return <Spin fullscreen tip="Завантаження ..." />;
   }
 
   return <>{children}</>;
